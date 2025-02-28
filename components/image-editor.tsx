@@ -106,9 +106,11 @@ export function ImageEditor({ image, onUpdate, width = 800, height = 800, onDime
       let drawWidth, drawHeight
       if (canvasAspectRatio > 1) {
         // Image is wider than canvas 
+        drawWidth = width
         drawHeight = width / canvasAspectRatio
       } else {
         // Image is taller than canvas 
+        drawHeight = height
         drawWidth = height * canvasAspectRatio
       }
 
@@ -127,8 +129,7 @@ export function ImageEditor({ image, onUpdate, width = 800, height = 800, onDime
       }else{
         imageHeight = imageWidth / imageAspectRatio
       }
-    
-
+ 
       // Clear canvas with transparency
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -140,6 +141,9 @@ export function ImageEditor({ image, onUpdate, width = 800, height = 800, onDime
       ctx.rotate((image.rotation * Math.PI) / 180)
       ctx.scale(scale, scale)
       ctx.translate(position.x / scale, position.y / scale)
+
+
+
 
       // Draw image centered
       ctx.drawImage(
@@ -168,7 +172,7 @@ export function ImageEditor({ image, onUpdate, width = 800, height = 800, onDime
     <div className="relative w-full h-full">
 
       <div className="flex-grow flex flex-col items-center justify-center overflow-hidden">
-        <div id="canvas-wrapper" className="bg-[conic-gradient(#f3f4f6_90deg,#e5e7eb_90deg_180deg,#f3f4f6_180deg_270deg,#e5e7eb_270deg)] bg-[length:20px_20px]"  >
+        <div id="canvas-wrapper" className="bg-[conic-gradient(#f3f4f6_90deg,#e5e7eb_90deg_180deg,#f3f4f6_180deg_270deg,#e5e7eb_270deg)] bg-[length:20px_20px] border-2 border-gray-300 rounded-lg shadow-sm">
           <canvas
             ref={canvasRef}
             onMouseDown={handleMouseDown}
